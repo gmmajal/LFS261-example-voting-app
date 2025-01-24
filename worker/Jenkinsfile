@@ -25,12 +25,14 @@ pipeline {
         stage('package'){ 
             steps{ 
                 echo 'packaging worker app into a jarfile'
-                sh 'mvn package'
+                sh 'mvn package -DskipTests'
             } 
         } 
     }
     post{ 
         always{ 
+            archiveArtifcats artifacts: '**/target/*.jar', fingerprint: true
+
             echo 'Building multibranch pipeline for worker is completed ...' 
 
     }
