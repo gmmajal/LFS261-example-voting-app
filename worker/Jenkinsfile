@@ -18,14 +18,14 @@ pipeline {
         stage('test'){ 
             steps{ 
                 echo 'running unit tests on worker app' 
-                 
+                sh 'mvn clean test'
    
             } 
         } 
         stage('package'){ 
             steps{ 
                 echo 'packaging worker app into a jarfile'
-                 
+                sh 'mvn package'
             } 
         } 
     }
