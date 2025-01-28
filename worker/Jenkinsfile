@@ -1,14 +1,16 @@
 pipeline { 
-    agent{
-       docker{ 
-          image 'maven:3.9.8-sapmachine-21'
-          args '-v $HOME/.m2:/root/.m2'
-       }
-    } 
+    agent none
+ 
     stages{ 
         stage('build'){ 
             when{
                changeset "**/worker/**"
+            }
+            agent{
+               docker{
+                  image 'maven:3.9.8-sapmachine-21'
+                  args '-v $HOME/.m2:/root/.m2'
+               }
             }
             steps{ 
                 echo 'building worker app' 
@@ -21,6 +23,12 @@ pipeline {
             when{
                changeset "**/worker/**"
             }
+            agent{
+               docker{
+                  image 'maven:3.9.8-sapmachine-21'
+                  args '-v $HOME/.m2:/root/.m2'
+               }
+            }
             steps{ 
                 echo 'running unit tests on worker app' 
                 dir('worker'){
@@ -32,6 +40,12 @@ pipeline {
             when{
                changeset "**/worker/**"
                branch 'master'
+            }
+            agent{
+               docker{
+                  image 'maven:3.9.8-sapmachine-21'
+                  args '-v $HOME/.m2:/root/.m2'
+               }
             }
             steps{ 
                 echo 'packaging worker app into a jarfile'
