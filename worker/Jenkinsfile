@@ -62,7 +62,7 @@ pipeline {
               script{
                  withCredentials([usernamePassword(credentialsId: 'dockerlogin', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]){
                      sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
-                     def workerImage = docker.build("gmajal/worker:v${env.BUILD_ID}","./worker")
+                     def workerImage = docker.build("gmmajal/worker:v${env.BUILD_ID}","./worker")
                      workerImage.push()
                      workerImage.push("${env.BRANCH_NAME}")
                      workerImage.push("latest")
