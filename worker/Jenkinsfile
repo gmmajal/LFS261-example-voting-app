@@ -60,8 +60,8 @@ pipeline {
            steps{
               echo 'packaging worker with Docker'
               script{
-                 docker.withRegistry('https://index.docker.io/v2', 'dockerlogin'){
-                     def workerImage = docker.build('gmajal/worker:v${env.BUILD_ID}', "./worker")
+                 docker.withRegistry("https://index.docker.io/v2", 'dockerlogin'){
+                     def workerImage = docker.build("gmajal/worker:v${env.BUILD_ID}","./worker")
                      workerImage.push()
                      workerImage.push("${env.BRANCH_NAME}")
                      workerImage.push("latest")
